@@ -4,6 +4,7 @@ const {PORT} = require('./config/server-config')
 const router = express.Router();
 
 const {sendBasicEmail} = require('./services/email-service');
+const cron  = require("node-cron");
 
 const SetupAndStartServer = async ()=>{
     
@@ -22,6 +23,9 @@ const SetupAndStartServer = async ()=>{
         //     'Hey whats up !, Hope you are fine'
         // )
     })
+    cron.schedule('*/2 * * * *', () => {
+        console.log('running a task every two minute');
+      });
 }
 
 SetupAndStartServer();
