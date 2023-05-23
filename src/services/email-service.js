@@ -1,4 +1,7 @@
 const sender = require('../config/emailConfig');
+const {TicketRepository} = require('../repository/index');
+
+const repo = new TicketRepository();
 
 const sendBasicEmail = async (mailFrom, mailTo, mailSubject, mailBody)=>{
 
@@ -13,12 +16,47 @@ const sendBasicEmail = async (mailFrom, mailTo, mailSubject, mailBody)=>{
     } 
     catch (error) {
         console.log(error)    
-    }
-    
+    }  
 };
 
+const fetchPendingEmail = async (timeStamp)=>{
+    try {
+        const response = await repo.get({status: "PENDING"});
+        return response;      
+    } 
+    catch (error) {
+        console.log("SOmething went wrong in pendingEmail service layer")
+        throw error;
+    }
+}
+
+const updateTicket = async (ticketId, data)=>{
+    try {
+        const response  = await repo.update(ticketId, data);
+        return response;
+    } 
+    catch (error) {
+        console.log("SOmething went wrong in UpdatingEmail service layer")
+        throw error;
+    }
+}
+
+const createNotification = async (data)=>{
+    try {
+        const response = await repo.create(data);
+        return response;
+    } 
+    catch (error) {
+        console.log("SOmething went wrong in CreateNotification service layer")
+        throw error;
+    }
+}
+
 module.exports = {
-    sendBasicEmail
+    sendBasicEmail,
+    fetchPendingEmail,
+    createNotification,
+    updateTicket
 }
 
 /**

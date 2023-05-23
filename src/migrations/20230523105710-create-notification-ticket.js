@@ -24,7 +24,8 @@ module.exports = {
       status: {
         type: Sequelize.ENUM,
         allowNull: false,
-        values: ["Pending", "Success", "Failed"]
+        values: ["Pending", "Success", "Failed"],
+        defaultValue : "Pending"
       },
       notificationTime: {           //represents what time the notification has to be sent to user using the cron job
         type: Sequelize.DATE,
