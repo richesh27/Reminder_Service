@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const {PORT} = require('./config/server-config')
+const {createChannel} = require('./utils/message-queue')
+
 const router = express.Router();
 
 const TicketController = require('./controllers/ticket-controller');
@@ -15,6 +17,7 @@ const SetupAndStartServer = async ()=>{
     app.use(bodyParser.urlencoded({extended:true}));
 
     app.post('/api/v1/tickets', TicketController.create); 
+    // const channel = await createChannel();
 
     app.listen(PORT,()=>{
 
